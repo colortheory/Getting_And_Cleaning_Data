@@ -1,9 +1,9 @@
 # Run the analysis -> creates the tiny data set and saves it under "tiny.txt"
 
 # Reads the base sets (files with begining by X) in an optimal way
-# * filePath: path of the file
-# * filteredFeatures: ids of the features to be extracted
-# * features: all features names
+# filePath: path of the file
+# filteredFeatures: ids of the features to be extracted
+# features: all features names
 readBaseSet <- function(filePath, filteredFeatures, features) {
         cols_widths <- rep(-16, length(features))
         cols_widths[filteredFeatures] <- 16
@@ -14,10 +14,10 @@ readBaseSet <- function(filePath, filteredFeatures, features) {
 }
 
 # Reads an additional file (other than the base sets). Used for subjects and labels.
-# * dataDirectory: directory of data
-# * filePath: relative path of the file. For instance if its value is "subject" it
-#   will read "UCI HAR Dataset/test/subject_test.txt" and
-# "UCI HAR Dataset/train/subject_train.txt", and merge them
+# dataDirectory: directory of data
+# filePath: relative path of the file. For instance if its value is "subject" it
+#     will read "UCI HAR Dataset/test/subject_test.txt" and
+#     "UCI HAR Dataset/train/subject_train.txt", and merge them
 readAdditionalFile <- function(dataDirectory, filePath) {
         filePathTest <- paste(dataDirectory, "/test/", filePath, "_test.txt", sep="")
         filePathTrain <- paste(dataDirectory, "/train/", filePath, "_train.txt", sep="")
@@ -27,7 +27,7 @@ readAdditionalFile <- function(dataDirectory, filePath) {
 
 # Correct a feature name - makes it nicer for dataframe columns (removes parentheses)
 # because otherwise they are transformed to dots.
-# * featureName: name of the feature
+# featureName: name of the feature
 correctFeatureName <- function(featureName) {
         featureName <- gsub("\\(", "", featureName)
         featureName <- gsub("\\)", "", featureName)
@@ -35,7 +35,7 @@ correctFeatureName <- function(featureName) {
 }
 
 # Read sets and returns a complete sets
-# * dataDirectory: directory of data
+# dataDirectory: directory of data
 readSets <- function(dataDirectory) {
         # Adding main data files (X_train and X_test)
         featuresFilePath <- paste(dataDirectory, "/features.txt", sep="")
@@ -57,7 +57,7 @@ readSets <- function(dataDirectory) {
 }
 
 # From sets, creates the tidy dataset (a summary)
-# * dataDirectory: directory of data
+# dataDirectory: directory of data
 createSummaryDataset <- function(dataDirectory) {
         sets <- readSets(dataDirectory)
         sets_x <- sets[,seq(1, length(names(sets)) - 2)]
